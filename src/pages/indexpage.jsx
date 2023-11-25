@@ -10,7 +10,7 @@ export default function IndexPage(){
   const [lasttw, setLasttw] = useState([])
   
   useEffect( () => {
-    fetch("http://localhost:4000/manga/topfive",{
+    fetch("http://16.171.37.129:4000/manga/topfive",{
     headers: {'Content-Type':'application/json'},
     method:"GET",
     credentials:"include"
@@ -18,7 +18,7 @@ export default function IndexPage(){
   },[])
 
   useEffect( () => {
-    fetch("http://localhost:4000/chapter/lasttw",{
+    fetch("http://16.171.37.129:4000/chapter/lasttw",{
     headers: {'Content-Type':'application/json'},
     method:"GET",
     credentials:"include"
