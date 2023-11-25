@@ -23,67 +23,75 @@ export default function MangaPage(){
 
 
     useEffect(() => {
-
-        async function check(userInfo) {
-            await fetch(`http://16.171.37.129:4000/manga/${params.name}`, {
-                credentials: "include",
-                headers: { 'Content-Type': 'application/json' },
-                })
-                .then(response => response.json())
-                .then(manga => {
-                    setManga(manga);
-                    chapterGetter(manga._id); // Call chapterGetter with the manga._id after setting the manga state
-                    Check(manga)
-                    CommentsGetter(manga._id)
-                })
-                .catch(error => {
-                    console.error('Error fetching manga:', error);
-                    // Handle the error if necessary
-            });
-
-            function Check(Mmanga){
-                fetch(`http://16.171.37.129:4000/manga/check/${userInfo.id}&${Mmanga._id}`, {
-                headers: { 'Content-Type': 'application/json' },
-                }).then(response => response.json()).then(data => setIsSaved(data.issaved))
-            }
-        
-            function chapterGetter(mangaId) {
-                fetch(`http://16.171.37.129:4000/chapter/relevant/${mangaId}`, {
+        async function fetchData() {
+            try {
+                const response = await fetch(`http://localhost:4000/manga/${params.name}`, {
                     credentials: "include",
                     headers: { 'Content-Type': 'application/json' },
-                })
-                    .then(response => response.json())
-                    .then(chapter => {
-                        setChapter(chapter.chapters);
-                        setCount(chapter.count)
-                        setFansub(chapter.fansubs)
-                    })
-                    .catch(error => {
-                        console.error('Error fetching chapters:', error);
-                        // Handle the error if necessary
-                    });
+                });
+    
+                const manga = await response.json();
+                setManga(manga);
+                await chapterGetter(manga._id);
+                await check(manga);
+                await CommentsGetter(manga._id);
+            } catch (error) {
+                console.error('Error fetching manga:', error);
+                // Handle the error if necessary
             }
-
-            function CommentsGetter(mangaId){
-                fetch(`http://16.171.37.129:4000/manga/comments/${mangaId}`, {
-                    headers: { 'Content-Type': 'application/json' }})
-                .then(response => response.json()).then(data => setComments(data))
+        }
+    
+        async function check(Mmanga) {
+            try {
+                const response = await fetch(`http://localhost:4000/manga/check/${userInfo.id}&${Mmanga._id}`, {
+                    headers: { 'Content-Type': 'application/json' },
+                });
+    
+                const data = await response.json();
+                setIsSaved(data.issaved);
+            } catch (error) {
+                console.error('Error checking manga:', error);
+                // Handle the error if necessary
             }
-            
         }
-
-        if(cout === 1){
-            check(userInfo)
-        }
-        else{
-            if(userInfo === ""){
-                check()
+    
+        async function chapterGetter(mangaId) {
+            try {
+                const response = await fetch(`http://localhost:4000/chapter/relevant/${mangaId}`, {
+                    credentials: "include",
+                    headers: { 'Content-Type': 'application/json' },
+                });
+    
+                const chapter = await response.json();
+                setChapter(chapter.chapters);
+                setCount(chapter.count);
+                setFansub(chapter.fansubs);
+            } catch (error) {
+                console.error('Error fetching chapters:', error);
+                // Handle the error if necessary
             }
-            setCout(1)
         }
-        ;
+    
+        async function CommentsGetter(mangaId) {
+            try {
+                const response = await fetch(`http://localhost:4000/manga/comments/${mangaId}`, {
+                    headers: { 'Content-Type': 'application/json' },
+                });
+    
+                const data = await response.json();
+                setComments(data);
+            } catch (error) {
+                console.error('Error fetching comments:', error);
+                // Handle the error if necessary
+            }
+        }
+    
+        if (userInfo) {
+            fetchData();
+        }
+    
     }, [userInfo]);
-
+    
     useEffect(()=>{
         if(isSaved === true){
             document.getElementById("save").innerHTML = "Kaydedildi"
@@ -93,7 +101,7 @@ export default function MangaPage(){
     },[isSaved])
 
     function Kaydet(userId,mangaId){
-        fetch(`http://16.171.37.129:4000/manga/save/${userId}&${mangaId}`, {
+        fetch(`http://localhost:4000/manga/save/${userId}&${mangaId}`, {
             headers: { 'Content-Type': 'application/json' },
         }).then(res => res.json()).then(resstat => StyleChanger(resstat.issaved))
     }
@@ -116,7 +124,7 @@ export default function MangaPage(){
         const btn = document.getElementById("btnsend")
         btn.classList.add("disabled")
         ev.preventDefault()
-        fetch("http://16.171.37.129:4000/manga/comments/add",{ 
+        fetch("http://localhost:4000/manga/comments/add",{ 
             method:"POST",
             body: JSON.stringify({content:content,user:userInfo.id,manga:Mmanga._id}),
             headers: {'Content-Type':'application/json'},
@@ -133,7 +141,7 @@ export default function MangaPage(){
     };
 
     function deletecomment(id){
-        fetch("http://16.171.37.129:4000/manga/comments/delete",{ 
+        fetch("http://localhost:4000/manga/comments/delete",{ 
             method:"POST",
             body: JSON.stringify({id:id, manga:Mmanga._id}),
             headers: {'Content-Type':'application/json'},
@@ -152,7 +160,7 @@ export default function MangaPage(){
                 <div className="grid gap-10 lg:grid-cols-9 grid-cols-1">
                     <div className="lg:col-span-2 lg:w-auto w-screen">
                         <div className=" bg-white shadow-xl bg-opacity-5 backdrop-blur-sm text-3xl break-words fredoka p-4 rounded-3xl drop-shadow-lg">
-                            <img src={"http://16.171.37.129:4000/Collection/"+Mmanga.image} alt="" className="rounded-xl mx-auto"/>
+                            <img src={"http://localhost:4000/Collection/"+Mmanga.image} alt="" className="rounded-xl mx-auto"/>
                             <h3 className="w-max mx-auto mt-2">Kategoriler</h3>
                             <hr />
                             <div className="flex flex-wrap justify-center gap-4 my-4">
@@ -175,15 +183,15 @@ export default function MangaPage(){
                             </h3>
                             <hr />
                             <div className="flex flex-wrap mt-2 gap-x-10 text-xl">
-                                <h4 className=" ">Mevcut Bölüm Sayısı: <span className="from-purple-600 to-teal-600 bg-gradient-to-r bg-clip-text text-transparent font-bold text-[#867865]">{Count}</span></h4>
+                                <h4 className=" ">Mevcut Bölüm Sayısı: <span className=" font-bold text-[#867865]">{Count}</span></h4>
                                 <div className="flex flex-wrap gap-x-4" >Çevirenler: 
                                     {Fansub && Fansub.map((Fansubs, index) => (
-                                        <h4 key={index} className="from-purple-600 to-teal-600 bg-gradient-to-r bg-clip-text text-transparent font-bold text-[#867865]">{Fansubs} </h4>
+                                        <h4 key={index} className=" font-bold text-[#867865]">{Fansubs} </h4>
                                     ))}
                                 </div>
                             </div>
                             <h5 className="text-xl mt-4"> 
-                                Görüntülenme: <span className="from-purple-600 to-teal-600 bg-gradient-to-r bg-clip-text text-transparent font-bold text-[#867865]">{Mmanga.view}</span>
+                                Görüntülenme: <span className=" font-bold text-[#867865]">{Mmanga.view}</span>
                             </h5>
                             <hr />
                             <div className=" ">

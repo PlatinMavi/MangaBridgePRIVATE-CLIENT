@@ -10,7 +10,7 @@ export default function IndexPage(){
   const [lasttw, setLasttw] = useState([])
   
   useEffect( () => {
-    fetch("http://16.171.37.129:4000/manga/topfive",{
+    fetch("http://localhost:4000/manga/topfive",{
     headers: {'Content-Type':'application/json'},
     method:"GET",
     credentials:"include"
@@ -18,7 +18,7 @@ export default function IndexPage(){
   },[])
 
   useEffect( () => {
-    fetch("http://16.171.37.129:4000/chapter/lasttw",{
+    fetch("http://localhost:4000/chapter/lasttw",{
     headers: {'Content-Type':'application/json'},
     method:"GET",
     credentials:"include"
@@ -31,7 +31,7 @@ export default function IndexPage(){
       <main className=" text-white">
         <Header />
           <div className="container my-24 mx-auto fredoka ">
-            <div className="grid grid-cols-1 lg:grid-cols-2 justify-items-center">
+            <div className="grid grid-cols-1 xl:grid-cols-2 justify-items-center">
               <div className="w-max">
                 {/* from-purple-600 to-teal-600 bg-gradient-to-r bg-clip-text text-transparent */}
                 <h1 className="lg:text-8xl md:text-6xl text-5xl font-bold  text-[#867865]">MangaBridge</h1><br /><h2 className=" md:text-5xl text-3xl break-words max-w-2xl">Bütün Mangalarınızın <br />Buluştuğu yer</h2>
@@ -56,14 +56,14 @@ export default function IndexPage(){
                 </div>
               </div>
             
-              <div className="ml-0 lg:ml-20 lg:mt-0 mt-32">
+              <div className="ml-0 xl:ml-20 xl:mt-0 mt-32">
                 <h1 className="text-center break-words w-3/4 mx-auto text-3xl mb-2">Mangabridgede En Çok Okunanlar</h1>
                 <div className="max-w-2xl">
-                  <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center gap-y-4">
+                  <div className="grid grid-cols-1 w-[670px] md:grid-cols-2 justify-items-center gap-y-4">
                     {topmanga.length > 0 && topmanga.map(manga =>(
-                    
-                      <Popular key={manga._id} {...manga} />
-                  
+
+                        <Popular {...manga} />
+
                     ))}
                   </div>
                 </div>
