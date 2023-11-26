@@ -9,7 +9,7 @@ export default function AllManga(){
     const [total, setTotal] = useState("")
   
     useEffect( () => {
-        fetch(`http://16.171.37.129:4000/manga/all/page?page=${"0"}`,{
+        fetch(`http://51.20.17.225:4000/manga/all/page?page=${"0"}`,{
         headers: {'Content-Type':'application/json'},
         method:"GET",
         credentials:"include"
@@ -22,7 +22,7 @@ export default function AllManga(){
 
     function GetMore(){
         setPage(page+1)
-        fetch(`http://16.171.37.129:4000/manga/all/page?page=${page.toString()}`,{
+        fetch(`http://51.20.17.225:4000/manga/all/page?page=${page.toString()}`,{
         headers: {'Content-Type':'application/json'},
         method:"GET",
         credentials:"include"

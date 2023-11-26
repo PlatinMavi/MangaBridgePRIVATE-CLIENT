@@ -13,7 +13,7 @@ export default function LoginPage(){
 
   async function login(ev) {
     ev.preventDefault();
-    const response = await fetch('http://16.171.37.129:4000/user/login', {
+    const response = await fetch('http://51.20.17.225:4000/user/login', {
       method: 'POST',
       body: JSON.stringify({username, password}),
       headers: {'Content-Type':'application/json'},

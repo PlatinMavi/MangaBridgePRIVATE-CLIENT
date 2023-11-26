@@ -15,7 +15,7 @@ export default function Header(){
     };
 
     useEffect(() =>{
-      fetch('http://16.171.37.129:4000/user/profile', {
+      fetch('http://51.20.17.225:4000/user/profile', {
         credentials: 'include',
         headers: {'Content-Type':'application/json'},
       }).then(response => {
@@ -26,7 +26,7 @@ export default function Header(){
     }, []);
   
     function logout() {
-      fetch('http://16.171.37.129:4000/user/logout', {
+      fetch('http://51.20.17.225:4000/user/logout', {
         credentials: 'include',
         method: 'POST',
       }).then(
