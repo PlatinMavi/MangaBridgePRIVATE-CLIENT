@@ -57,7 +57,7 @@ export default function IndexPage(){
               </div>
             
               <div className="ml-0 xl:ml-20 xl:mt-0 mt-32">
-                <h1 className="text-center break-words w-3/4 mx-auto text-3xl mb-2">Mangabridgede En Çok Okunanlar</h1>
+                <h1 className="text-center break-words mx-auto text-3xl mb-2">Mangabridgede <br />En Çok Okunanlar</h1>
                 <div className="max-w-2xl">
                   <div className="grid grid-cols-1 w-[670px] md:grid-cols-2 justify-items-center gap-y-4">
                     {topmanga.length > 0 && topmanga.map(manga =>(
