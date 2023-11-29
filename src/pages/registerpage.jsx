@@ -9,7 +9,7 @@ export default function RegisterPage(){
 
     async function register(ev){
         ev.preventDefault()
-        const response = await fetch("http://51.20.17.225:4000/user/register",{
+        const response = await fetch("http://api.mangabridge.com/user/register",{
             method:"POST",
             body: JSON.stringify({username, password}),
             headers: {"Content-Type":"application/json"}

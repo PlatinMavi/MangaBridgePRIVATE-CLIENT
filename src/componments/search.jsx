@@ -11,7 +11,7 @@ export default function SearchBar() {
         setSearchResults([]);
         return;
       }
-      const response = await fetch(`http://51.20.17.225:4000/manga/search?key=${key}`, {
+      const response = await fetch(`http://api.mangabridge.com/manga/search?key=${key}`, {
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
       });
@@ -52,7 +52,7 @@ export default function SearchBar() {
             searchResults.map((manga) => (
               <Link to={"/manga/"+manga.browser} >
                 <div className="flex w-64 break-words my-1 gap-x-2">
-                    <img src={"http://51.20.17.225:4000/Collection/"+manga.image} alt="" className="w-16 h-24 rounded-lg" />
+                    <img src={"http://api.mangabridge.com/Collection/"+manga.image} alt="" className="w-16 h-24 rounded-lg" />
                     <h5 className="" key={manga._id}> {manga.name} </h5>
                 </div>
               </Link>

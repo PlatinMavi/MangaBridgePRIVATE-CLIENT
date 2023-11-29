@@ -8,7 +8,7 @@ export default function AllChapter(){
     const [total, setTotal] = useState("")
   
     useEffect( () => {
-        fetch(`http://51.20.17.225:4000/chapter/lastup?page=${"0"}`,{
+        fetch(`http://api.mangabridge.com/chapter/lastup?page=${"0"}`,{
         headers: {'Content-Type':'application/json'},
         method:"GET",
         credentials:"include"
@@ -21,7 +21,7 @@ export default function AllChapter(){
 
     function GetMore(){
         setPage(page+1)
-        fetch(`http://51.20.17.225:4000/chapter/lastup?page=${page.toString()}`,{
+        fetch(`http://api.mangabridge.com/chapter/lastup?page=${page.toString()}`,{
         headers: {'Content-Type':'application/json'},
         method:"GET",
         credentials:"include"

@@ -25,7 +25,7 @@ export default function MangaPage(){
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch(`http://51.20.17.225:4000/manga/${params.name}`, {
+                const response = await fetch(`http://api.mangabridge.com/manga/${params.name}`, {
                     credentials: "include",
                     headers: { 'Content-Type': 'application/json' },
                 });
@@ -43,7 +43,7 @@ export default function MangaPage(){
     
         async function check(Mmanga) {
             try {
-                const response = await fetch(`http://51.20.17.225:4000/manga/check/${userInfo.id}&${Mmanga._id}`, {
+                const response = await fetch(`http://api.mangabridge.com/manga/check/${userInfo.id}&${Mmanga._id}`, {
                     headers: { 'Content-Type': 'application/json' },
                 });
     
@@ -57,7 +57,7 @@ export default function MangaPage(){
     
         async function chapterGetter(mangaId) {
             try {
-                const response = await fetch(`http://51.20.17.225:4000/chapter/relevant/${mangaId}`, {
+                const response = await fetch(`http://api.mangabridge.com/chapter/relevant/${mangaId}`, {
                     credentials: "include",
                     headers: { 'Content-Type': 'application/json' },
                 });
@@ -74,7 +74,7 @@ export default function MangaPage(){
     
         async function CommentsGetter(mangaId) {
             try {
-                const response = await fetch(`http://51.20.17.225:4000/manga/comments/${mangaId}`, {
+                const response = await fetch(`http://api.mangabridge.com/manga/comments/${mangaId}`, {
                     headers: { 'Content-Type': 'application/json' },
                 });
     
@@ -101,7 +101,7 @@ export default function MangaPage(){
     },[isSaved])
 
     function Kaydet(userId,mangaId){
-        fetch(`http://51.20.17.225:4000/manga/save/${userId}&${mangaId}`, {
+        fetch(`http://api.mangabridge.com/manga/save/${userId}&${mangaId}`, {
             headers: { 'Content-Type': 'application/json' },
         }).then(res => res.json()).then(resstat => StyleChanger(resstat.issaved))
     }
@@ -124,7 +124,7 @@ export default function MangaPage(){
         const btn = document.getElementById("btnsend")
         btn.classList.add("disabled")
         ev.preventDefault()
-        fetch("http://51.20.17.225:4000/manga/comments/add",{ 
+        fetch("http://api.mangabridge.com/manga/comments/add",{ 
             method:"POST",
             body: JSON.stringify({content:content,user:userInfo.id,manga:Mmanga._id}),
             headers: {'Content-Type':'application/json'},
@@ -141,7 +141,7 @@ export default function MangaPage(){
     };
 
     function deletecomment(id){
-        fetch("http://51.20.17.225:4000/manga/comments/delete",{ 
+        fetch("http://api.mangabridge.com/manga/comments/delete",{ 
             method:"POST",
             body: JSON.stringify({id:id, manga:Mmanga._id}),
             headers: {'Content-Type':'application/json'},
@@ -160,7 +160,7 @@ export default function MangaPage(){
                 <div className="grid gap-10 lg:grid-cols-9 grid-cols-1">
                     <div className="lg:col-span-2 lg:w-auto w-screen">
                         <div className=" bg-white shadow-xl bg-opacity-5 backdrop-blur-sm text-3xl break-words fredoka p-4 rounded-3xl drop-shadow-lg">
-                            <img src={"http://51.20.17.225:4000/Collection/"+Mmanga.image} alt="" className="rounded-xl mx-auto"/>
+                            <img src={"http://api.mangabridge.com/Collection/"+Mmanga.image} alt="" className="rounded-xl mx-auto"/>
                             <h3 className="w-max mx-auto mt-2">Kategoriler</h3>
                             <hr />
                             <div className="flex flex-wrap justify-center gap-4 my-4">

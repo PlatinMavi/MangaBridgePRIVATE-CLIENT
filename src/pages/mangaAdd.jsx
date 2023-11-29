@@ -20,7 +20,7 @@ export default function MangaAdd(){
 
     const {setUserInfo} = useContext(UserContext);
     useEffect(() =>{
-      fetch('http://51.20.17.225:4000/profile', {
+      fetch('http://api.mangabridge.com/profile', {
         credentials: 'include',
         headers: {'Content-Type':'application/json'},
       }).then(response => {
@@ -39,7 +39,7 @@ export default function MangaAdd(){
       
     const fetchMangaList = async () => {
         try {
-          const response = await fetch("http://51.20.17.225:4000/manga/all"); // Adjust the endpoint URL to your manga fetch route
+          const response = await fetch("http://api.mangabridge.com/manga/all"); // Adjust the endpoint URL to your manga fetch route
           if (response.ok) {
             const data = await response.json();
             setMangaList(data); // Assuming the response contains an array of manga objects with _id and name fields
@@ -51,7 +51,7 @@ export default function MangaAdd(){
     
     async function submitManga(ev){
         ev.preventDefault()
-        const response = await fetch("http://51.20.17.225:4000/manga/add",{ 
+        const response = await fetch("http://api.mangabridge.com/manga/add",{ 
             method:"POST",
             body: JSON.stringify({Name, Img, Desc,Categorys,Browser}),
             headers: {'Content-Type':'application/json'},
@@ -66,7 +66,7 @@ export default function MangaAdd(){
 
     async function submitChapter(ev){
         ev.preventDefault()
-        const response = await fetch("http://51.20.17.225:4000/chapter/add",{ 
+        const response = await fetch("http://api.mangabridge.com/chapter/add",{ 
             method:"POST",
             body: JSON.stringify({number,Url,Manga,Fansub}),
             headers: {'Content-Type':'application/json'},

@@ -19,7 +19,7 @@ export default function ProfilePage(){
     },[userInfo])
 
     function GetSaved(ui){
-      fetch(`http://51.20.17.225:4000/manga/save/getall/${ui.id}`)
+      fetch(`http://api.mangabridge.com/manga/save/getall/${ui.id}`)
       .then(response => response.json()).then(data => setMangas(data))
     }
 
@@ -42,7 +42,7 @@ export default function ProfilePage(){
                         <div className="grid lg:grid-cols-6 md:grid-cols-4 grid-cols-2 mt-4 gap-4">
                           {mangas.length > 0 && mangas.map(manga =>( 
                             <Link to={`/manga/${manga.browser}`}>                                                    
-                              <img src={"http://51.20.17.225:4000/Collection/"+manga.image} alt="" className="w-full lg:h-60 md:h-52 h-60 mx-auto rounded-xl shadow-xl" />
+                              <img src={"http://api.mangabridge.com/Collection/"+manga.image} alt="" className="w-full lg:h-60 md:h-52 h-60 mx-auto rounded-xl shadow-xl" />
                               <p className="w-full text-center mx-auto text-lg break-words"> {manga.name} </p>
                             </Link>  
                           ))}
