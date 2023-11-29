@@ -10,7 +10,7 @@ export default function IndexPage(){
   const [lasttw, setLasttw] = useState([])
   
   useEffect( () => {
-    fetch("http://api.mangabridge.com/manga/topfive",{
+    fetch("https://api.mangabridge.com/manga/topfive",{
     headers: {'Content-Type':'application/json'},
     method:"GET",
     credentials:"include"
@@ -18,7 +18,7 @@ export default function IndexPage(){
   },[])
 
   useEffect( () => {
-    fetch("http://api.mangabridge.com/chapter/lasttw",{
+    fetch("https://api.mangabridge.com/chapter/lasttw",{
     headers: {'Content-Type':'application/json'},
     method:"GET",
     credentials:"include"

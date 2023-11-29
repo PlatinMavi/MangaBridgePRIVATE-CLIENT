@@ -9,7 +9,7 @@ export default function AllManga(){
     const [total, setTotal] = useState("")
   
     useEffect( () => {
-        fetch(`http://api.mangabridge.com/manga/all/page?page=${"0"}`,{
+        fetch(`https://api.mangabridge.com/manga/all/page?page=${"0"}`,{
         headers: {'Content-Type':'application/json'},
         method:"GET",
         credentials:"include"
@@ -22,7 +22,7 @@ export default function AllManga(){
 
     function GetMore(){
         setPage(page+1)
-        fetch(`http://api.mangabridge.com/manga/all/page?page=${page.toString()}`,{
+        fetch(`https://api.mangabridge.com/manga/all/page?page=${page.toString()}`,{
         headers: {'Content-Type':'application/json'},
         method:"GET",
         credentials:"include"

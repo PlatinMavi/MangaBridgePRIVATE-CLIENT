@@ -15,7 +15,7 @@ export default function Header(){
     };
 
     useEffect(() =>{
-      fetch('http://api.mangabridge.com/user/profile', {
+      fetch('https://api.mangabridge.com/user/profile', {
         credentials: 'include',
         headers: {'Content-Type':'application/json'},
       }).then(response => {
@@ -26,7 +26,7 @@ export default function Header(){
     }, []);
   
     function logout() {
-      fetch('http://api.mangabridge.com/user/logout', {
+      fetch('https://api.mangabridge.com/user/logout', {
         credentials: 'include',
         method: 'POST',
       }).then(
